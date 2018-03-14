@@ -1,0 +1,4 @@
+{
+    "module_name": "SampleModule",
+    "image_repository": "localhost:5000/samplemodule"
+}
