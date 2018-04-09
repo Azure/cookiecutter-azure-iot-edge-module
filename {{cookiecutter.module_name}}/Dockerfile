@@ -2,11 +2,9 @@ FROM ubuntu:xenial
 
 WORKDIR /app
 
-RUN apt-get update && apt-get install -y \
-    python \
-    python-pip \
-    libboost1.58-all-dev \
-    libcurl4-openssl-dev
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends libcurl4-openssl-dev python-pip libboost-python-dev && \
+    rm -rf /var/lib/apt/lists/* 
 
 COPY requirements.txt ./
 RUN pip install -r requirements.txt
