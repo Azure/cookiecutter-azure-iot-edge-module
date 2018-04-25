@@ -1,5 +1,36 @@
+# Cookiecutter Template for Azure IoT Edge Python Module
 
-# Contributing
+`cookiecutter-azure-iot-edge-module` creates a base template to start a new Azure IoT Edge Python module
+
+## Prerequisites
+Install [Cookiecutter](https://github.com/audreyr/cookiecutter):
+```
+$ pip install -U cookiecutter
+```
+
+## Usage
+```
+$ cookiecutter https://github.com/Azure/cookiecutter-azure-iot-edge-module
+```
+and follow the interactive prompts.
+
+If you prefer one-liner:
+```
+$ cookiecutter --no-input https://github.com/Azure/cookiecutter-azure-iot-edge-module module_name=<module_name> image_repository=<image_repository>
+```
+
+For example:
+```
+$ cookiecutter --no-input https://github.com/Azure/cookiecutter-azure-iot-edge-module module_name=filterModule image_repository=localhost:5000/filtermodule
+```
+
+## Build, deploy and run the module
+
+Check out the [document](https://docs.microsoft.com/en-us/azure/iot-edge/tutorial-python-module).
+
+Learn more about Azure IoT Edge [here](https://docs.microsoft.com/en-us/azure/iot-edge/).
+
+## Contributing
 
 This project welcomes contributions and suggestions.  Most contributions require you to agree to a
 Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us
