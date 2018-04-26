@@ -24,11 +24,9 @@ For example:
 $ cookiecutter --no-input https://github.com/Azure/cookiecutter-azure-iot-edge-module module_name=filterModule image_repository=localhost:5000/filtermodule
 ```
 
-## Build, deploy and run the module
-
-Check out the [document](https://docs.microsoft.com/en-us/azure/iot-edge/tutorial-python-module).
-
-Learn more about Azure IoT Edge [here](https://docs.microsoft.com/en-us/azure/iot-edge/).
+## Documentation
+* [Develop and deploy a Python IoT Edge module to your simulated device](https://docs.microsoft.com/en-us/azure/iot-edge/tutorial-python-module)
+* [Azure IoT Edge](https://docs.microsoft.com/en-us/azure/iot-edge/)
 
 ## Contributing
 
