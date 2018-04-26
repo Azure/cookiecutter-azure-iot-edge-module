@@ -11,4 +11,7 @@ RUN pip install -r requirements.txt
 
 COPY . .
 
+RUN useradd -ms /bin/bash moduleuser
+USER moduleuser
+
 CMD [ "python", "-u", "./main.py" ]
