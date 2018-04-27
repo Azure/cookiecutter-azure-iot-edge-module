@@ -10,18 +10,18 @@ $ pip install -U cookiecutter
 
 ## Usage
 ```
-$ cookiecutter https://github.com/Azure/cookiecutter-azure-iot-edge-module
+$ cookiecutter https://github.com/Azure/cookiecutter-azure-iot-edge-module --checkout master
 ```
 and follow the interactive prompts.
 
 If you prefer one-liner:
 ```
-$ cookiecutter --no-input https://github.com/Azure/cookiecutter-azure-iot-edge-module module_name=<module_name> image_repository=<image_repository>
+$ cookiecutter --no-input https://github.com/Azure/cookiecutter-azure-iot-edge-module module_name=<module_name> image_repository=<image_repository> --checkout master
 ```
 
 For example:
 ```
-$ cookiecutter --no-input https://github.com/Azure/cookiecutter-azure-iot-edge-module module_name=filterModule image_repository=localhost:5000/filtermodule
+$ cookiecutter --no-input https://github.com/Azure/cookiecutter-azure-iot-edge-module module_name=filterModule image_repository=localhost:5000/filtermodule --checkout master
 ```
 
 ## Documentation
