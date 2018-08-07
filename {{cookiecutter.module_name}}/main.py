@@ -6,6 +6,7 @@ import random
 import time
 import sys
 import iothub_client
+# pylint: disable=E0611
 from iothub_client import IoTHubModuleClient, IoTHubClientError, IoTHubTransportProvider
 from iothub_client import IoTHubMessage, IoTHubMessageDispositionResult, IoTHubError
 
