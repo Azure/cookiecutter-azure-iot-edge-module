@@ -14,4 +14,4 @@ COPY . .
 RUN useradd -ms /bin/bash moduleuser
 USER moduleuser
 
-CMD [ "python", "-u", "./main.py" ]
+ENTRYPOINT [ "python", "-u", "./main.py" ]
