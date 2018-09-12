@@ -24,3 +24,29 @@ jobs:
     inputs:
       testResultsFiles: "**/test-results.xml"
       testRunTitle: 'Publish test results for Python $(python.version)'
+      
+- job: Windows
+  pool:
+    vmImage: 'vs2017-win2016'
+  
+  steps:
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: 3.6
+      architecture: 'x64'
+   
+  - script: |
+      pip install pytest
+      python -m pip install -U cookiecutter
+      cookiecutter --no-input https://github.com/Azure/cookiecutter-azure-iot-edge-module module_name=filterModule image_repository=localhost:5000/filtermodule --checkout master
+    condition: succeededOrFailed()
+    displayName: 'Install cookiecutter and module project'
+  
+  - script: |
+      pytest --junitxml=junit/test-results.xml
+    displayName: 'Run tests with pytest'
+  
+  - task: PublishTestResults@2
+    inputs:
+      testResultsFiles: "**/test-results.xml"
+      testRunTitle: 'Publish test results for Python $(python.version)'
