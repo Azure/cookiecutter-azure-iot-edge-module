@@ -1,0 +1,4 @@
+[
+  "tests/test_iotedgemodule.py::TestIoTEdgeModule::()::test_RequiredFileExists",
+  "tests/test_iotedgemodule.py::TestIoTEdgeModule::()::test_RequiredFileExists2"
+]
