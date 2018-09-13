@@ -26,11 +26,11 @@ jobs:
       pip install pytest
       pip install -U cookiecutter
     condition: succeededOrFailed()
-    displayName: 'Install cookiecutter and module project'
+    displayName: 'Install cookiecutter'
   
   - script: |
       pytest
-    displayName: 'Run tests with pytest'
+    displayName: 'Install IoT Edge Module and Run tests with pytest'
   
   - task: PublishTestResults@2
     inputs:
@@ -64,11 +64,11 @@ jobs:
       pip install pytest
       pip install -U cookiecutter
     condition: succeededOrFailed()
-    displayName: 'Install cookiecutter and module project'
+    displayName: 'Install cookiecutter'
   
   - script: |
       pytest
-    displayName: 'Run tests with pytest'
+    displayName: 'Install IoT Edge Module and Run tests with pytest'
   
   - task: PublishTestResults@2
     inputs:
@@ -102,11 +102,11 @@ jobs:
       pip install pytest
       pip install -U cookiecutter
     condition: succeededOrFailed()
-    displayName: 'Install cookiecutter and module project'
+    displayName: 'Install cookiecutter'
   
   - script: |
       pytest
-    displayName: 'Run tests with pytest'
+    displayName: 'Install IoT Edge Module and Run tests with pytest'
   
   - task: PublishTestResults@2
     inputs:
