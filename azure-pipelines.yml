@@ -25,7 +25,6 @@ jobs:
       pip install --upgrade pip
       pip install pytest
       pip install -U cookiecutter
-      cookiecutter --no-input https://github.com/Azure/cookiecutter-azure-iot-edge-module module_name=filterModule image_repository=localhost:5000/filtermodule --checkout master
     condition: succeededOrFailed()
     displayName: 'Install cookiecutter and module project'
   
@@ -64,7 +63,6 @@ jobs:
       pip install --upgrade pip
       pip install pytest
       pip install -U cookiecutter
-      cookiecutter --no-input https://github.com/Azure/cookiecutter-azure-iot-edge-module module_name=filterModule image_repository=localhost:5000/filtermodule --checkout master
     condition: succeededOrFailed()
     displayName: 'Install cookiecutter and module project'
   
@@ -103,7 +101,6 @@ jobs:
       pip install --upgrade pip
       pip install pytest
       pip install -U cookiecutter
-      cookiecutter --no-input https://github.com/Azure/cookiecutter-azure-iot-edge-module module_name=filterModule image_repository=localhost:5000/filtermodule --checkout master
     condition: succeededOrFailed()
     displayName: 'Install cookiecutter and module project'
   
