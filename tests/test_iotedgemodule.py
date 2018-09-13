@@ -1,15 +1,16 @@
 import pytest
+import os
 
-class TestIoTEdgeModule():
-    def test_RequiredFileExists(self):
-        print(self.__class__)
-        assert 1 == 1
+root_dir = os.getcwd()
+module_name = "filterModule"
 
-    def test_RequiredFileExists2(self):
-        print(self.__class__)
-        assert 1 == 1
+@pytest.fixture(scope="module",params=["requirements.txt","module.json","main.py","Dockerfile.arm32v7","Dockerfile.amd64.debug","Dockerfile.amd64",".gitignore"])
+def test_CheckFileExists(request):
+    exists=os.path.exists(os.path.join(root_dir,module_name,request.param))
+    return exists
 
-if __name__ == '__main__':
-    iotEdgeModule=TestIoTEdgeModule()
-    iotEdgeModule.test_RequiredFileExists()
-    iotEdgeModule.test_RequiredFileExists2()
+def test_CheckIoTEdgeModuleExits(test_CheckFileExists):
+    if test_CheckFileExists :
+        pass
+    else:
+        raise Exception("IoT Edge Module cannot be found.")
