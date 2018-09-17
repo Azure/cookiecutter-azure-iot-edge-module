@@ -23,14 +23,14 @@ jobs:
    
   - script: |
       pip install --upgrade pip
-      pip install pytest
-      pip install -U cookiecutter
+      pip install --upgrade pytest
+      pip install --upgrade cookiecutter
     condition: succeeded()
     displayName: 'Install cookiecutter'
   
   - script: |
       pytest -s
-    displayName: 'Install IoT Edge Module and Run tests with pytest'
+    displayName: 'Scaffold an IoT Edge module and run tests with pytest'
   
   - task: PublishTestResults@2
     inputs:
