@@ -1,114 +1,15 @@
 jobs:
-- job: Linux
-  pool:
-    vmImage: 'ubuntu-16.04'
+- template: common-pipelines.yml
+  parameters:
+    name: macOS
+    vmImage: xcode9-macos10.13
 
-  strategy:
-    matrix:
-      Python27:
-        python.version: '2.7'
-      Python35:
-        python.version: '3.5'
-      Python36:
-        python.version: '3.6'
-      Python37:
-        python.version: '3.7'
-    maxParallel: 4
+- template: common-pipelines.yml
+  parameters:
+    name: Linux
+    vmImage: ubuntu-1604
 
-  steps:
-  - task: UsePythonVersion@0
-    inputs:
-      versionSpec: '$(python.version)'
-      architecture: 'x64'
-   
-  - script: |
-      pip install --upgrade pip
-      pip install pytest
-      pip install -U cookiecutter
-    condition: succeededOrFailed()
-    displayName: 'Install cookiecutter'
-  
-  - script: |
-      pytest
-    displayName: 'Install IoT Edge Module and Run tests with pytest'
-  
-  - task: PublishTestResults@2
-    inputs:
-      testResultsFiles: "**/test-results.xml"
-      testRunTitle: 'Publish test results for Python $(python.version)'
-      
-- job: Windows
-  pool:
-    vmImage: 'vs2017-win2016'
-
-  strategy:
-    matrix:
-      Python27:
-        python.version: '2.7'
-      Python35:
-        python.version: '3.5'
-      Python36:
-        python.version: '3.6'
-      Python37:
-        python.version: '3.7'
-    maxParallel: 4
-  
-  steps:
-  - task: UsePythonVersion@0
-    inputs:
-      versionSpec: '$(python.version)'
-      architecture: 'x64'
-   
-  - script: |
-      pip install --upgrade pip
-      pip install pytest
-      pip install -U cookiecutter
-    condition: succeededOrFailed()
-    displayName: 'Install cookiecutter'
-  
-  - script: |
-      pytest
-    displayName: 'Install IoT Edge Module and Run tests with pytest'
-  
-  - task: PublishTestResults@2
-    inputs:
-      testResultsFiles: "**/test-results.xml"
-      testRunTitle: 'Publish test results for Python $(python.version)'
-
-- job: macOS
-  pool:
-    vmImage: 'xcode9-macos10.13'
-
-  strategy:
-    matrix:
-      Python27:
-        python.version: '2.7'
-      Python35:
-        python.version: '3.5'
-      Python36:
-        python.version: '3.6'
-      Python37:
-        python.version: '3.7'
-    maxParallel: 4
-  
-  steps:
-  - task: UsePythonVersion@0
-    inputs:
-      versionSpec: '$(python.version)'
-      architecture: 'x64'
-   
-  - script: |
-      pip install --upgrade pip
-      pip install pytest
-      pip install -U cookiecutter
-    condition: succeededOrFailed()
-    displayName: 'Install cookiecutter'
-  
-  - script: |
-      pytest
-    displayName: 'Install IoT Edge Module and Run tests with pytest'
-  
-  - task: PublishTestResults@2
-    inputs:
-      testResultsFiles: "**/test-results.xml"
-      testRunTitle: 'Publish test results for Python $(python.version)'
+- template: common-pipelines.yml
+  parameters:
+    name: Windows
+    vmImage: vs2017-win2016
