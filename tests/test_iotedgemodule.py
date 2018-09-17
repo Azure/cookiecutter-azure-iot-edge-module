@@ -13,7 +13,7 @@ image_repository = "localhost:5000/" + module_name
 
 @pytest.fixture(scope="module")
 def test_install_scaffold(request):
-    installmodulecommand = "cookiecutter --no-input " + root_dir + " module_name=" + \
+    installmodulecommand = "cookiecutter --no-input \"" + root_dir + "\" module_name=" + \
         module_name + " image_repository=" + image_repository
     print("Cookiecutter execution command: " + installmodulecommand)
     with os.popen(installmodulecommand) as pipe:
