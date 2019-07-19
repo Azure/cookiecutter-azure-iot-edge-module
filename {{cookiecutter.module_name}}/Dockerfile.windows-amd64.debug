@@ -1,4 +1,4 @@
-FROM python:3.7-slim-buster
+FROM python:3.7-windowsservercore-1809
 
 WORKDIR /app
 
@@ -8,4 +8,4 @@ RUN pip install -r requirements.txt
 
 COPY . .
 
-CMD [ "python3", "-u", "./main.py" ]
+CMD [ "python", "-u", "./main.py" ]
