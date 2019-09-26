@@ -9,7 +9,6 @@ import asyncio
 from six.moves import input
 import threading
 from azure.iot.device.aio import IoTHubModuleClient
-from azure.iot.device import auth
 
 async def main():
     try:
@@ -27,13 +26,13 @@ async def main():
         # define behavior for receiving an input message on input1
         async def input1_listener(module_client):
             while True:
-                input_message = await module_client.receive_input_message("input1")  # blocking call
+                input_message = await module_client.receive_message_on_input("input1")  # blocking call
                 print("the data in the message received on input1 was ")
                 print(input_message.data)
                 print("custom properties are")
                 print(input_message.custom_properties)
                 print("forwarding mesage to output1")
-                await module_client.send_to_output(input_message, "output1")
+                await module_client.send_message_to_output(input_message, "output1")
 
         # define behavior for halting the application
         def stdin_listener():
