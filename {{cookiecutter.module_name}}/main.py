@@ -12,7 +12,8 @@ from azure.iot.device.aio import IoTHubModuleClient
 
 async def main():
     try:
-        print ( "\nPython %s\n" % sys.version )
+        if not sys.version >= "3.5.3":
+            raise Exception( "The sample requires python 3.5.3+. Current version of Python: %s" % sys.version )
         print ( "IoT Hub Client for Python" )
 
         # The client object is used to interact with your Azure IoT hub.
@@ -63,12 +64,12 @@ async def main():
 
     except Exception as e:
         print ( "Unexpected error %s " % e )
-        return
+        raise
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    loop = asyncio.get_event_loop()
+    loop.run_until_complete(main())
+    loop.close()
 
-    # If using Python 3.6 or below, use the following code instead of asyncio.run(main()):
-    # loop = asyncio.get_event_loop()
-    # loop.run_until_complete(main())
-    # loop.close()
+    # If using Python 3.7 or above, you can use following code instead:
+    # asyncio.run(main())
