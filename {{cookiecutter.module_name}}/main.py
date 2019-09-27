@@ -15,8 +15,6 @@ async def main():
         print ( "\nPython %s\n" % sys.version )
         print ( "IoT Hub Client for Python" )
 
-        print ( "The sample is now waiting for messages and will indefinitely. ")
-
         # The client object is used to interact with your Azure IoT hub.
         module_client = IoTHubModuleClient.create_from_edge_environment()
 
@@ -47,6 +45,8 @@ async def main():
 
         # Schedule task for C2D Listener
         listeners = asyncio.gather(input1_listener(module_client))
+
+        print ( "The sample is now waiting for messages. ")
 
         # Run the stdin listener in the event loop
         loop = asyncio.get_event_loop()
