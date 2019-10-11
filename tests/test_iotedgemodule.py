@@ -9,7 +9,6 @@ module_name = "iotedgeFilterModule"
 file_list = ["requirements.txt", "module.json", "main.py", ".gitignore",
              "Dockerfile.arm32v7", "Dockerfile.arm32v7.debug",
              "Dockerfile.amd64", "Dockerfile.amd64.debug",
-             "Dockerfile.arm64v8", "Dockerfile.arm64v8.debug",
              "Dockerfile.windows-amd64", "Dockerfile.windows-amd64.debug"]
 image_repository = "localhost:5000/" + module_name
 
