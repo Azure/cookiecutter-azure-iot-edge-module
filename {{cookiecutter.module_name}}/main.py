@@ -33,31 +33,12 @@ async def main():
                 print("forwarding mesage to output1")
                 await module_client.send_message_to_output(input_message, "output1")
 
-        # define behavior for halting the application
-        def stdin_listener():
-            while True:
-                try:
-                    selection = input("Press Q to quit\n")
-                    if selection == "Q" or selection == "q":
-                        print("Quitting...")
-                        break
-                except:
-                    time.sleep(10)
-
         # Schedule task for C2D Listener
         listeners = asyncio.gather(input1_listener(module_client))
 
         print ( "The sample is now waiting for messages. ")
 
-        # Run the stdin listener in the event loop
-        loop = asyncio.get_event_loop()
-        user_finished = loop.run_in_executor(None, stdin_listener)
-
-        # Wait for user to indicate they are done listening for messages
-        await user_finished
-
-        # Cancel listening
-        listeners.cancel()
+        await listeners
 
         # Finally, disconnect
         await module_client.disconnect()
