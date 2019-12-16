@@ -6,8 +6,9 @@ import shutil
 
 root_dir = os.getcwd()
 module_name = "iotedgeFilterModule"
-file_list = ["requirements.txt", "module.json", "main.py", "Dockerfile.arm32v7",
-             "Dockerfile.amd64.debug", "Dockerfile.amd64", ".gitignore"]
+file_list = ["requirements.txt", "module.json", "main.py", ".gitignore",
+             "Dockerfile.arm32v7", "Dockerfile.arm32v7.debug",
+             "Dockerfile.amd64", "Dockerfile.amd64.debug"]
 image_repository = "localhost:5000/" + module_name
 
 
