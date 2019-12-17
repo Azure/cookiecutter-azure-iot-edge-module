@@ -1,1 +1,1 @@
-azure-iot-device~=2.0.0RC11
+azure-iot-device~=2.0.0
