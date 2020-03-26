@@ -2,7 +2,7 @@ jobs:
 - template: common-pipelines.yml
   parameters:
     name: macOS
-    vmImage: xcode9-macos10.13
+    vmImage: macOS-10.15
 
 - template: common-pipelines.yml
   parameters:
