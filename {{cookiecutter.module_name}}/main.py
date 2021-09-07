@@ -65,9 +65,6 @@ def main():
     loop = asyncio.get_event_loop()
     try:
         loop.run_until_complete(run_sample(client))
-        # while True:
-        #     time.sleep(1000)
-
     except Exception as e:
         print("Unexpected error %s " % e)
         raise
