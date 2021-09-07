@@ -2,9 +2,8 @@
 # Licensed under the MIT license. See LICENSE file in the project root for
 # full license information.
 
-import time
-import sys
 import asyncio
+import sys
 import signal
 import threading
 from azure.iot.device.aio import IoTHubModuleClient
