@@ -62,6 +62,7 @@ def main():
     # Set the Edge termination handler
     signal.signal(signal.SIGTERM, module_termination_handler)
 
+    # Run the sample
     loop = asyncio.get_event_loop()
     try:
         loop.run_until_complete(run_sample(client))
