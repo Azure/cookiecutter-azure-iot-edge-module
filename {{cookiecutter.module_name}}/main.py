@@ -2,74 +2,78 @@
 # Licensed under the MIT license. See LICENSE file in the project root for
 # full license information.
 
-import time
-import os
-import sys
 import asyncio
-from six.moves import input
+import sys
+import signal
 import threading
 from azure.iot.device.aio import IoTHubModuleClient
 
-async def main():
+
+# Event indicating client stop
+stop_event = threading.Event()
+
+
+def create_client():
+    client = IoTHubModuleClient.create_from_edge_environment()
+
+    # Define function for handling received messages
+    async def receive_message_handler(message):
+        # NOTE: This function only handles messages sent to "input1".
+        # Messages sent to other inputs, or to the default, will be discarded
+        if message.input_name == "input1":
+            print("the data in the message received on input1 was ")
+            print(message.data)
+            print("custom properties are")
+            print(message.custom_properties)
+            print("forwarding mesage to output1")
+            await client.send_message_to_output(message, "output1")
+
     try:
-        if not sys.version >= "3.5.3":
-            raise Exception( "The sample requires python 3.5.3+. Current version of Python: %s" % sys.version )
-        print ( "IoT Hub Client for Python" )
-
-        # The client object is used to interact with your Azure IoT hub.
-        module_client = IoTHubModuleClient.create_from_edge_environment()
-
-        # connect the client.
-        await module_client.connect()
-
-        # define behavior for receiving an input message on input1
-        async def input1_listener(module_client):
-            while True:
-                input_message = await module_client.receive_message_on_input("input1")  # blocking call
-                print("the data in the message received on input1 was ")
-                print(input_message.data)
-                print("custom properties are")
-                print(input_message.custom_properties)
-                print("forwarding mesage to output1")
-                await module_client.send_message_to_output(input_message, "output1")
-
-        # define behavior for halting the application
-        def stdin_listener():
-            while True:
-                try:
-                    selection = input("Press Q to quit\n")
-                    if selection == "Q" or selection == "q":
-                        print("Quitting...")
-                        break
-                except:
-                    time.sleep(10)
-
-        # Schedule task for C2D Listener
-        listeners = asyncio.gather(input1_listener(module_client))
-
-        print ( "The sample is now waiting for messages. ")
-
-        # Run the stdin listener in the event loop
-        loop = asyncio.get_event_loop()
-        user_finished = loop.run_in_executor(None, stdin_listener)
-
-        # Wait for user to indicate they are done listening for messages
-        await user_finished
-
-        # Cancel listening
-        listeners.cancel()
-
-        # Finally, disconnect
-        await module_client.disconnect()
-
-    except Exception as e:
-        print ( "Unexpected error %s " % e )
+        # Set handler on the client
+        client.on_message_received = receive_message_handler
+    except:
+        # Cleanup if failure occurs
+        client.shutdown()
         raise
 
-if __name__ == "__main__":
-    loop = asyncio.get_event_loop()
-    loop.run_until_complete(main())
-    loop.close()
+    return client
 
-    # If using Python 3.7 or above, you can use following code instead:
-    # asyncio.run(main())
+
+async def run_sample(client):
+    # Customize this coroutine to do whatever tasks the module initiates
+    # e.g. sending messages
+    while True:
+        await asyncio.sleep(1000)
+
+
+def main():
+    if not sys.version >= "3.5.3":
+        raise Exception( "The sample requires python 3.5.3+. Current version of Python: %s" % sys.version )
+    print ( "IoT Hub Client for Python" )
+
+    # NOTE: Client is implicitly connected due to the handler being set on it
+    client = create_client()
+
+    # Define a handler to cleanup when module is is terminated by Edge
+    def module_termination_handler(signal, frame):
+        print ("IoTHubClient sample stopped by Edge")
+        stop_event.set()
+
+    # Set the Edge termination handler
+    signal.signal(signal.SIGTERM, module_termination_handler)
+
+    # Run the sample
+    loop = asyncio.get_event_loop()
+    try:
+        loop.run_until_complete(run_sample(client))
+    except Exception as e:
+        print("Unexpected error %s " % e)
+        raise
+    finally:
+        print("Shutting down IoT Hub Client...")
+        loop.run_until_complete(client.shutdown())
+        loop.close()
+
+
+if __name__ == "__main__":
+    main()
